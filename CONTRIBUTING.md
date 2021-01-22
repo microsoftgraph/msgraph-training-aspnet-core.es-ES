@@ -1,30 +1,30 @@
 ---
-ms.openlocfilehash: fbd3e506358aa4be60dfe3891b50085691f7443a
-ms.sourcegitcommit: 9d0d10a9e8e5a1d80382d89bc412df287bee03f3
+ms.openlocfilehash: bc39e84debe100762908cda81d2ba8685769aaee
+ms.sourcegitcommit: 3ee5ced77209775eb5e744f68c9235bad8ec2bf4
 ms.translationtype: MT
 ms.contentlocale: es-ES
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "48822410"
+ms.lasthandoff: 01/21/2021
+ms.locfileid: "49919546"
 ---
-# <a name="contributing-to-microsoft-graph-training-repositories"></a>Contribuir a repositorios de aprendizaje de Microsoft Graph
+# <a name="contributing-to-microsoft-graph-training-repositories"></a>Contribución a repositorios de aprendizaje de Microsoft Graph
 
-Gracias por colaborar en este proyecto. Antes de enviar la solicitud de incorporación deble, asegúrese de tener en cuenta lo siguiente.
+Gracias por contribuir a este proyecto. Antes de enviar la solicitud de extracción, asegúrate de tener en cuenta lo siguiente.
 
 ## <a name="overview"></a>Información general
 
 El código de este repositorio sirve para tres propósitos:
 
-- Los archivos de Markdown en la carpeta [tutorial](/tutorial) se publican como un tutorial en la página de [tutoriales de Microsoft Graph](https://docs.microsoft.com/graph/tutorials) .
-- El proyecto de ejemplo de la carpeta [Demo](/demo) es el origen de un [Inicio rápido de Microsoft Graph](https://developer.microsoft.com/graph/quick-start). * *\** _
-- El proyecto de ejemplo de la carpeta demo también se puede descargar directamente desde GitHub y debe ejecutarse tal cual después de una configuración sencilla.
+- Los archivos markdown de la [carpeta del tutorial](/tutorial) se publican como un tutorial en la página de [tutoriales de Microsoft Graph.](https://docs.microsoft.com/graph/tutorials)
+- El proyecto de ejemplo de la [carpeta de demostración](/demo) es el origen de un inicio rápido de [Microsoft Graph](https://developer.microsoft.com/graph/quick-start).* *\** _
+- El proyecto de ejemplo de la carpeta de demostración también se puede descargar directamente desde GitHub y debe ejecutarse tal como está después de una configuración sencilla.
 
-> _*\**_ No todos los repositorios de formación están disponibles como inicios rápidos (todavía).
+> _*\**_ No todos los repositorios de aprendizaje están disponibles como inicios rápidos (todavía).
 
-Es importante tener esto en cuenta, ya que los cambios en un solo punto _may * requieren cambios en otro para mantener sincronizados los elementos. Whereever posible, los archivos de Markdown hacen referencia a los archivos de código fuente directamente (mediante una `:::code` Sintaxis personalizada), de modo que la actualización del código en el origen actualice automáticamente el código en Markdown.
+Esto es importante tener en cuenta, ya que los cambios en un lugar _may* requieren cambios en otro, para mantener las cosas sincronizadas. Siempre que sea posible, los archivos Markdown hacen referencia directamente a los archivos de código fuente (mediante una sintaxis personalizada), de modo que la actualización del código en el origen actualizará automáticamente el código `:::code` en Markdown.
 
 ## <a name="updating-code"></a>Actualizar código
 
-La `:::code` sintaxis usada en Markdown depende de comentarios específicos en el archivo de código fuente. Estos comentarios son similares a los siguientes:
+La `:::code` sintaxis usada en Markdown depende de comentarios específicos en el archivo de código fuente. Estos comentarios tienen el siguiente aspecto:
 
 ```csharp
 // <MySnippet>
@@ -32,19 +32,19 @@ Console.WriteLine("Hello World!");
 // </MySnippet>
 ```
 
-Si actualiza el código entre estos comentarios de "marcador", los archivos de Markdown obtendrán automáticamente esos cambios cuando se publiquen en el sitio de documentación de Microsoft Graph. Si actualiza el código fuera de esos comentarios, es muy probable que necesite actualizar el Markdown correspondiente.
+Si actualiza el código entre estos comentarios de "marcador", los archivos de Markdown recibirán automáticamente esos cambios cuando se publiquen en el sitio de documentación de Microsoft Graph. Si actualiza código fuera de esos comentarios, es muy probable que necesite actualizar el Markdown correspondiente.
 
-## <a name="adding-features"></a>Adición de características
+## <a name="adding-features"></a>Agregar características
 
-Si bien se agradece el entusiasmo, no envíe solicitudes de incorporación de inserción para agregar nuevas características al ejemplo. Como este repositorio es principalmente un tutorial de creación de la primera aplicación, el conjunto de características es limitado, por diseño.
+Aunque se agradece el entusiasmo, no envíe solicitudes de extracción para agregar nuevas características a la muestra. Dado que este repositorio es principalmente un tutorial de "compilación de la primera aplicación", el conjunto de características está limitado, por diseño.
 
-## <a name="submitting-pull-requests"></a>Enviar solicitudes de inserción
+## <a name="submitting-pull-requests"></a>Envío de solicitudes de extracción
 
-Envíe todas las solicitudes de incorporación de `master` conmutación a la sucursal.
+Envíe todas las solicitudes de extracción a la `main` rama.
 
 ## <a name="when-do-changes-get-published"></a>¿Cuándo se publican los cambios?
 
-La publicación de actualizaciones en el sitio de [tutoriales de Microsoft Graph](https://docs.microsoft.com/graph/tutorials) no es automática. En primer lugar, los cambios deben promoverse a la `live` rama y, a continuación, los administradores del sitio deben desencadenar una compilación. Normalmente, esto se realiza en función de las necesidades.
+La publicación de actualizaciones en el sitio [de tutoriales](https://docs.microsoft.com/graph/tutorials) de Microsoft Graph no es automática. Los cambios deben promoverse primero a la rama y, a continuación, los administradores del sitio deben desencadenar una `live` compilación. Esto suele hacerse "según sea necesario".
 
 ## <a name="code-of-conduct"></a>Código de conducta
 
