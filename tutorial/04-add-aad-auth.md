@@ -1,23 +1,23 @@
 ---
-ms.openlocfilehash: 6e6c476b4ff0901f50d8e35a17f584d73b48b533
-ms.sourcegitcommit: 9d0d10a9e8e5a1d80382d89bc412df287bee03f3
+ms.openlocfilehash: a024fb533c552563da6c9179301e16a2e1d09d5f
+ms.sourcegitcommit: 6341ad07cd5b03269e7fd20cd3212e48baee7c07
 ms.translationtype: MT
 ms.contentlocale: es-ES
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "48822475"
+ms.lasthandoff: 01/23/2021
+ms.locfileid: "49942165"
 ---
 <!-- markdownlint-disable MD002 MD041 -->
 
-En este ejercicio, ampliará la aplicación del ejercicio anterior para admitir la autenticación con Azure AD. Esto es necesario para obtener el token de acceso de OAuth necesario para llamar a la API de Microsoft Graph. En este paso, configurará la biblioteca [Microsoft. Identity. Web](https://www.nuget.org/packages/Microsoft.Identity.Web/) .
+En este ejercicio, ampliará la aplicación del ejercicio anterior para admitir la autenticación con Azure AD. Esto es necesario para obtener el token de acceso OAuth necesario para llamar a la API de Microsoft Graph. En este paso configurará la [biblioteca Microsoft.Identity.Web.](https://www.nuget.org/packages/Microsoft.Identity.Web/)
 
 > [!IMPORTANT]
-> Para evitar almacenar el identificador de aplicación y el secreto en el origen, deberá usar el [Administrador de secretos de .net](/aspnet/core/security/app-secrets) para almacenar estos valores. El administrador de secretos solo se usa con fines de desarrollo, las aplicaciones de producción deben usar un administrador de secretos de confianza para almacenar secretos.
+> Para evitar almacenar el identificador de aplicación y el secreto en el origen, usará el Administrador de secretos [de .NET](/aspnet/core/security/app-secrets) para almacenar estos valores. El Administrador de secretos es solo con fines de desarrollo, las aplicaciones de producción deben usar un administrador de secretos de confianza para almacenar secretos.
 
-1. Abra **./appsettings.jsen** y reemplace su contenido por lo siguiente.
+1. Abra **./appsettings.jsy** reemplace su contenido por lo siguiente.
 
     :::code language="json" source="../demo/GraphTutorial/appsettings.json" highlight="2-6":::
 
-1. Abra su CLI en el directorio donde se encuentra **GraphTutorial. csproj** y ejecute los siguientes comandos, sustituyendo `YOUR_APP_ID` por el identificador de la aplicación del portal de Azure y `YOUR_APP_SECRET` por el secreto de la aplicación.
+1. Abra la CLI en el directorio donde se encuentra **GraphTutorial.csproj** y ejecute los siguientes comandos, sustituyendo con su identificador de aplicación desde Azure Portal y con el secreto de `YOUR_APP_ID` `YOUR_APP_SECRET` aplicación.
 
     ```Shell
     dotnet user-secrets init
@@ -27,13 +27,13 @@ En este ejercicio, ampliará la aplicación del ejercicio anterior para admitir 
 
 ## <a name="implement-sign-in"></a>Implementar el inicio de sesión
 
-Empiece agregando Microsoft Identity Platform Services a la aplicación.
+Empiece por agregar los servicios de la plataforma de Microsoft Identity a la aplicación.
 
-1. Cree un nuevo archivo denominado **GraphConstants.CS** en el directorio **./Graph** y agregue el siguiente código.
+1. Cree un archivo denominado **GraphConstants.cs** en el directorio **./Graph** y agregue el siguiente código.
 
     :::code language="csharp" source="../demo/GraphTutorial/Graph/GraphConstants.cs" id="GraphConstantsSnippet":::
 
-1. Abra el archivo **./startup.CS** y agregue las siguientes `using` instrucciones en la parte superior del archivo.
+1. Abra el **archivo ./Startup.cs** y agregue las siguientes `using` instrucciones en la parte superior del archivo.
 
     ```csharp
     using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -79,13 +79,13 @@ Empiece agregando Microsoft Identity Platform Services a la aplicación.
     }
     ```
 
-1. En la `Configure` función, agregue la siguiente línea encima de la `app.UseAuthorization();` línea.
+1. En la `Configure` función, agregue la siguiente línea por encima de la `app.UseAuthorization();` línea.
 
     ```csharp
     app.UseAuthentication();
     ```
 
-1. Abra **./Controllers/HomeController.CS** y reemplace su contenido por lo siguiente.
+1. Abra **./Controllers/HomeController.cs** y reemplace su contenido por lo siguiente.
 
     ```csharp
     using GraphTutorial.Models;
@@ -152,45 +152,45 @@ Empiece agregando Microsoft Identity Platform Services a la aplicación.
 
 1. Guarde los cambios e inicie el proyecto. Inicie sesión con su cuenta de Microsoft.
 
-1. Examine la solicitud de consentimiento. La lista de permisos se corresponde con la lista de ámbitos de permisos configurados en **./Graph/GraphConstants.CS**.
+1. Examine la solicitud de consentimiento. La lista de permisos corresponde a la lista de ámbitos de permisos configurados en **./Graph/GraphConstants.cs**.
 
-    - **Mantener el acceso a los datos a los que ha dado acceso a:** ( `offline_access` ) este permiso se solicita mediante la MSAL para recuperar los tokens de actualización.
-    - **Inicie sesión y lea su perfil:** ( `User.Read` ) este permiso permite a la aplicación obtener el perfil y la foto de perfil del usuario que ha iniciado sesión.
-    - **Leer la configuración del buzón de correo:** ( `MailboxSettings.Read` ) este permiso permite que la aplicación Lea la configuración del buzón del usuario, incluido el formato de hora y zona horaria.
-    - **Tener acceso completo a sus calendarios:** ( `Calendars.ReadWrite` ) este permiso permite a la aplicación leer eventos en el calendario del usuario, agregar nuevos eventos y modificar los existentes.
+    - **Mantenga el acceso a los datos** a los que le ha concedido acceso: ( ) MSAL solicita este permiso para recuperar `offline_access` tokens de actualización.
+    - **Inicie sesión y lea su perfil:** ( ) Este permiso permite a la aplicación obtener el perfil y la foto de perfil del usuario que ha iniciado `User.Read` sesión.
+    - **Lea la configuración del buzón:** ( ) Este permiso permite a la aplicación leer la configuración del buzón del usuario, incluido el formato de zona `MailboxSettings.Read` horaria y hora.
+    - Tener acceso completo a los **calendarios:** ( ) Este permiso permite a la aplicación leer eventos en el calendario del usuario, agregar nuevos eventos y modificar los `Calendars.ReadWrite` existentes.
 
-    ![Captura de pantalla del mensaje de consentimiento de Microsoft Identity Platform](./images/add-aad-auth-03.png)
+    ![Captura de pantalla del aviso de consentimiento de la plataforma de identidad de Microsoft](./images/add-aad-auth-03.png)
 
-    Para obtener más información sobre el consentimiento, consulte [Understanding Azure ad Application consienteon experiencias](/azure/active-directory/develop/application-consent-experience).
+    Para obtener más información sobre el consentimiento, consulte [Descripción de las experiencias de consentimiento de aplicaciones de Azure AD.](/azure/active-directory/develop/application-consent-experience)
 
-1. Consentimiento para los permisos solicitados. El explorador redirige a la aplicación, que muestra el token.
+1. Consentimiento para los permisos solicitados. El explorador redirige a la aplicación y muestra el token.
 
 ### <a name="get-user-details"></a>Obtener detalles del usuario
 
-Una vez que el usuario haya iniciado sesión, podrá obtener su información de Microsoft Graph.
+Una vez que el usuario haya iniciado sesión, puede obtener su información de Microsoft Graph.
 
-1. Abra **./Graph/GraphClaimsPrincipalExtensions.CS** y reemplace todo el contenido por lo siguiente.
+1. Abra **./Graph/GraphClaimsPrincipalExtensions.cs** y reemplace todo su contenido por lo siguiente.
 
     :::code language="csharp" source="../demo/GraphTutorial/Graph/GraphClaimsPrincipalExtensions.cs" id="GraphClaimsExtensionsSnippet":::
 
-1. Abra **./startup.CS** y reemplace la `.AddMicrosoftIdentityWebApp(Configuration)` línea existente con el código siguiente.
+1. Abra **./Startup.cs** y reemplace la línea `.AddMicrosoftIdentityWebApp(Configuration)` existente por el siguiente código.
 
     :::code language="csharp" source="../demo/GraphTutorial/Startup.cs" id="AddSignInSnippet":::
 
-    Considere lo que hace este código.
+    Ten en cuenta lo que hace este código.
 
     - Agrega un controlador de eventos para el `OnTokenValidated` evento.
-        - Usa la `ITokenAcquisition` interfaz para obtener un token de acceso.
+        - Usa la interfaz `ITokenAcquisition` para obtener un token de acceso.
         - Llama a Microsoft Graph para obtener el perfil y la foto del usuario.
-        - Agrega la información del gráfico a la identidad del usuario.
+        - Agrega la información de Graph a la identidad del usuario.
 
-1. Agregue la siguiente llamada de función después de la `EnableTokenAcquisitionToCallDownstreamApi` llamada y antes de la `AddInMemoryTokenCaches` llamada.
+1. Agregue la siguiente llamada de función después de `EnableTokenAcquisitionToCallDownstreamApi` la llamada y antes de la `AddInMemoryTokenCaches` llamada.
 
     :::code language="csharp" source="../demo/GraphTutorial/Startup.cs" id="AddGraphClientSnippet":::
 
-    Esto hará que un **GraphServiceClient** autenticado esté disponible para los controladores a través de la inserción de dependencia.
+    Esto hará que **graphServiceClient** autenticado esté disponible para los controladores a través de la inserción de dependencias.
 
-1. Abra **./Controllers/HomeController.CS** y reemplace la `Index` función por lo siguiente.
+1. Abra **./Controllers/HomeController.cs** y reemplace la `Index` función por lo siguiente.
 
     ```csharp
     public IActionResult Index()
@@ -199,26 +199,29 @@ Una vez que el usuario haya iniciado sesión, podrá obtener su información de 
     }
     ```
 
-1. Quite todas las referencias a `ITokenAcquisition` en la clase **HomeController** .
+1. Quite todas las referencias `ITokenAcquisition` a la clase **HomeController.**
 
-1. Guarde los cambios, inicie la aplicación y pase por el proceso de inicio de sesión. Deberás volver a la Página principal, pero la interfaz de usuario debe cambiar para indicar que has iniciado sesión.
+1. Guarde los cambios, inicie la aplicación y realice el proceso de inicio de sesión. Debería volver a la página principal, pero la interfaz de usuario debe cambiar para indicar que ha iniciado sesión.
 
-    ![Una captura de pantalla de la Página principal después de iniciar sesión](./images/add-aad-auth-01.png)
+    ![Captura de pantalla de la página principal después de iniciar sesión](./images/add-aad-auth-01.png)
 
-1. Haga clic en el avatar de usuario en la esquina superior derecha para acceder al vínculo **Cerrar sesión** . Al hacer clic en **cerrar** sesión se restablece la sesión y se vuelve a la Página principal.
+1. Haz clic en el avatar del usuario en la esquina superior derecha para acceder al vínculo **Cerrar** sesión. Al **hacer clic en** Cerrar sesión, se restablece la sesión y se vuelve a la página principal.
 
-    ![Captura de pantalla del menú desplegable con el vínculo cerrar sesión](./images/add-aad-auth-02.png)
+    ![Captura de pantalla del menú desplegable con el vínculo Cerrar sesión](./images/add-aad-auth-02.png)
 
-## <a name="storing-and-refreshing-tokens"></a>Almacenamiento y actualización de tokens
+> [!TIP]
+> Si no ve el nombre de usuario en la página principal y falta el nombre y el correo electrónico del cuadro desplegable de avatares de uso después de realizar estos cambios, vuelva a cerrar sesión y cerrar sesión.
 
-En este punto, la aplicación tiene un token de acceso, que se envía en el `Authorization` encabezado de las llamadas a la API. Este es el token que permite que la aplicación tenga acceso a Microsoft Graph en nombre del usuario.
+## <a name="storing-and-refreshing-tokens"></a>Almacenar y actualizar tokens
 
-Sin embargo, este token es de corta duración. El token expira una hora después de su emisión. Aquí es donde el token de actualización se vuelve útil. El token de actualización permite que la aplicación solicite un nuevo token de acceso sin que el usuario tenga que iniciar sesión de nuevo.
+En este momento, la aplicación tiene un token de acceso, que se envía en el `Authorization` encabezado de las llamadas API. Este es el token que permite que la aplicación acceda a Microsoft Graph en nombre del usuario.
 
-Debido a que la aplicación usa la biblioteca Microsoft. Identity. Web, no es necesario implementar ninguna lógica de almacenamiento o actualización de tokens.
+Sin embargo, este token es de corta duración. El token expira una hora después de su emisión. Aquí es donde el token de actualización resulta útil. El token de actualización permite a la aplicación solicitar un nuevo token de acceso sin necesidad de que el usuario vuelva a iniciar sesión.
 
-La aplicación usa la caché de token en memoria, que es suficiente para las aplicaciones que no necesitan conservar los tokens cuando se reinicia la aplicación. Las aplicaciones de producción pueden usar en su lugar las [Opciones de caché distribuida](https://github.com/AzureAD/microsoft-identity-web/wiki/token-cache-serialization) de la biblioteca Microsoft. Identity. Web.
+Dado que la aplicación usa la biblioteca Microsoft.Identity.Web, no es necesario implementar ningún almacenamiento de tokens ni lógica de actualización.
 
-El `GetAccessTokenForUserAsync` método controla la expiración y la actualización de los tokens. Primero comprueba el token almacenado en caché y, si no lo ha expirado, lo devuelve. Si ha expirado, usa el token de actualización almacenado en caché para obtener uno nuevo.
+La aplicación usa la memoria caché de tokens en memoria, lo que es suficiente para las aplicaciones que no necesitan conservar tokens cuando se reinicia la aplicación. En su lugar, las aplicaciones de producción pueden usar las opciones de caché [distribuida](https://github.com/AzureAD/microsoft-identity-web/wiki/token-cache-serialization) en la biblioteca Microsoft.Identity.Web.
 
-El **GraphServiceClient** que los controladores obtienen mediante la inyección de dependencia estarán preconfigurados con un proveedor de autenticación que usará `GetAccessTokenForUserAsync` para usted.
+El `GetAccessTokenForUserAsync` método controla la expiración del token y la actualización automáticamente. Primero comprueba el token almacenado en caché y, si no ha expirado, lo devuelve. Si ha expirado, usa el token de actualización en caché para obtener uno nuevo.
+
+**GraphServiceClient que obtienen** los controladores a través de la inserción de dependencias se configurará previamente con un proveedor de autenticación `GetAccessTokenForUserAsync` que lo use automáticamente.

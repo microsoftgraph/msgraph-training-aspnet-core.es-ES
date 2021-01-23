@@ -1,20 +1,20 @@
 ---
-ms.openlocfilehash: 17394dd6283464eabcbea1f60c48640412b55431
-ms.sourcegitcommit: 9d0d10a9e8e5a1d80382d89bc412df287bee03f3
+ms.openlocfilehash: c954903f38d48bcca4c534f4d0cfbe1605cbf7f6
+ms.sourcegitcommit: 6341ad07cd5b03269e7fd20cd3212e48baee7c07
 ms.translationtype: MT
 ms.contentlocale: es-ES
-ms.lasthandoff: 10/30/2020
-ms.locfileid: "48822524"
+ms.lasthandoff: 01/23/2021
+ms.locfileid: "49942151"
 ---
 <!-- markdownlint-disable MD002 MD041 -->
 
-En esta sección, incorporará Microsoft Graph a la aplicación. Para esta aplicación, usará la [biblioteca de cliente de Microsoft Graph para .net](https://github.com/microsoftgraph/msgraph-sdk-dotnet) para realizar llamadas a Microsoft Graph.
+En esta sección incorporará Microsoft Graph a la aplicación. Para esta aplicación, usará la biblioteca cliente de [Microsoft Graph para .NET](https://github.com/microsoftgraph/msgraph-sdk-dotnet) para realizar llamadas a Microsoft Graph.
 
 ## <a name="get-calendar-events-from-outlook"></a>Obtener eventos de calendario de Outlook
 
-Empiece por crear un nuevo controlador para las vistas de calendario.
+Empiece por crear un controlador nuevo para las vistas de calendario.
 
-1. Agregue un nuevo archivo denominado **CalendarController.CS** en el directorio **./Controllers** y agregue el siguiente código.
+1. Agrega un nuevo archivo denominado **CalendarController.cs** en el directorio **./Controllers** y agrega el siguiente código.
 
     ```csharp
     using GraphTutorial.Models;
@@ -49,14 +49,14 @@ Empiece por crear un nuevo controlador para las vistas de calendario.
 
     :::code language="csharp" source="../demo/GraphTutorial/Controllers/CalendarController.cs" id="GetCalendarViewSnippet":::
 
-    Tenga en cuenta lo que `GetUserWeekCalendar` hace el código.
+    Ten en cuenta lo que hace el `GetUserWeekCalendar` código.
 
-    - Usa la zona horaria del usuario para obtener los valores de fecha y hora de inicio y finalización de UTC para la semana.
-    - Consulta la [vista de calendario](/graph/api/calendar-list-calendarview?view=graph-rest-1.0) del usuario para obtener todos los eventos comprendidos entre la fecha y hora de inicio y finalización. El uso de una vista de calendario en lugar de una [lista de eventos](/graph/api/user-list-events?view=graph-rest-1.0) expande los eventos periódicos y devuelve todas las repeticiones que se produzcan en la ventana de tiempo especificada.
-    - Usa el `Prefer: outlook.timezone` encabezado para obtener resultados de vuelta en la zona horaria del usuario.
-    - Usa `Select` para limitar los campos que se devuelven solo a los que usa la aplicación.
-    - Usa `OrderBy` para ordenar los resultados cronológicamente.
-    - Utiliza una `PageIterator` Página para a [través de la colección Events](/graph/sdks/paging). Esto controla el caso en el que el usuario tiene más eventos en su calendario que el tamaño de página solicitado.
+    - Usa la zona horaria del usuario para obtener los valores de fecha y hora de inicio y finalización UTC de la semana.
+    - Consulta la vista de calendario del usuario [para](/graph/api/calendar-list-calendarview?view=graph-rest-1.0) obtener todos los eventos que se encuentra entre la fecha y hora de inicio y finalización. El uso de una vista de calendario en lugar de enumerar eventos [expande](/graph/api/user-list-events?view=graph-rest-1.0) los eventos periódicos y devuelve las repeticiones que se produzcan en la ventana de tiempo especificada.
+    - Usa el encabezado `Prefer: outlook.timezone` para obtener resultados en la zona horaria del usuario.
+    - Se usa `Select` para limitar los campos que regresan solo a los que usa la aplicación.
+    - Se usa `OrderBy` para ordenar los resultados cronológicamente.
+    - Usa una página `PageIterator` para a través de la colección de [eventos](/graph/sdks/paging). Esto controla el caso en el que el usuario tiene más eventos en su calendario que el tamaño de página solicitado.
 
 1. Agregue la siguiente función a la `CalendarController` clase para implementar una vista temporal de los datos devueltos.
 
@@ -84,7 +84,7 @@ Empiece por crear un nuevo controlador para las vistas de calendario.
         {
             if (ex.InnerException is MicrosoftIdentityWebChallengeUserException)
             {
-                throw ex;
+                throw;
             }
 
             return new ContentResult {
@@ -95,44 +95,44 @@ Empiece por crear un nuevo controlador para las vistas de calendario.
     }
     ```
 
-1. Inicie la aplicación, inicie sesión y haga clic en el vínculo de **calendario** en la barra de navegación. Si todo funciona, debería ver un volcado JSON de eventos en el calendario del usuario.
+1. Inicie la aplicación, inicie sesión y haga clic en el vínculo **Calendario** de la barra de navegación. Si todo funciona, debería ver un volcado JSON de eventos en el calendario del usuario.
 
 ## <a name="display-the-results"></a>Mostrar los resultados
 
-Ahora puede Agregar una vista para mostrar los resultados de forma más fácil de uso.
+Ahora puede agregar una vista para mostrar los resultados de una manera más fácil de usar.
 
 ### <a name="create-view-models"></a>Crear modelos de vista
 
-1. Cree un nuevo archivo denominado **CalendarViewEvent.CS** en el directorio **./Models** y agregue el siguiente código.
+1. Cree un archivo denominado **CalendarViewEvent.cs** en el directorio **./Models** y agregue el siguiente código.
 
     :::code language="csharp" source="../demo/GraphTutorial/Models/CalendarViewEvent.cs" id="CalendarViewEventSnippet":::
 
-1. Cree un nuevo archivo denominado **DailyViewModel.CS** en el directorio **./Models** y agregue el siguiente código.
+1. Cree un archivo denominado **DailyViewModel.cs** en el directorio **./Models** y agregue el siguiente código.
 
     :::code language="csharp" source="../demo/GraphTutorial/Models/DailyViewModel.cs" id="DailyViewModelSnippet":::
 
-1. Cree un nuevo archivo denominado **CalendarViewModel.CS** en el directorio **./Models** y agregue el siguiente código.
+1. Cree un archivo denominado **CalendarViewModel.cs** en el directorio **./Models** y agregue el siguiente código.
 
     :::code language="csharp" source="../demo/GraphTutorial/Models/CalendarViewModel.cs" id="CalendarViewModelSnippet":::
 
 ### <a name="create-views"></a>Crear vistas
 
-1. Cree un nuevo directorio denominado **Calendar** en el directorio **./views** .
+1. Cree un directorio denominado **Calendario** en el directorio **./Views.**
 
-1. Cree un nuevo archivo con el nombre **_DailyEventsPartial. cshtml** en el directorio **./views/Calendar** y agregue el siguiente código.
+1. Cree un archivo denominado **_DailyEventsPartial.cshtml** en el directorio **./Views/Calendar** y agregue el siguiente código.
 
     :::code language="cshtml" source="../demo/GraphTutorial/Views/Calendar/_DailyEventsPartial.cshtml" id="DailyEventsPartialSnippet":::
 
-1. Cree un nuevo archivo denominado **index. cshtml** en el directorio **./views/Calendar** y agregue el siguiente código.
+1. Cree un nuevo archivo denominado **Index.cshtml** en el directorio **./Views/Calendar** y agregue el siguiente código.
 
     :::code language="cshtml" source="../demo/GraphTutorial/Views/Calendar/Index.cshtml" id="CalendarIndexSnippet":::
 
-### <a name="update-calendar-controller"></a>Actualizar el controlador de calendario
+### <a name="update-calendar-controller"></a>Actualizar controlador de calendario
 
-1. Abra **./Controllers/CalendarController.CS** y reemplace la `Index` función existente por lo siguiente.
+1. Abra **./Controllers/CalendarController.cs** y reemplace la función `Index` existente por lo siguiente.
 
     :::code language="csharp" source="../demo/GraphTutorial/Controllers/CalendarController.cs" id="IndexSnippet":::
 
-1. Inicie la aplicación, inicie sesión y haga clic en el vínculo **calendario** . La aplicación ahora debería representar una tabla de eventos.
+1. Inicia la aplicación, inicia sesión y haz clic en el **vínculo** Calendario. La aplicación ahora debe representar una tabla de eventos.
 
     ![Captura de pantalla de la tabla de eventos](./images/add-msgraph-01.png)
